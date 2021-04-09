@@ -10,11 +10,8 @@ armbian_oldpath=${make_path}/build/output/images
 armbian_dtbpath=https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-dtb
 
 die() {
-    error "${1}" && exit 1
-}
-
-error() {
     echo -e " [ \033[1;31m Error \033[0m ] ${1}"
+    exit 1
 }
 
 build_kernel() {
