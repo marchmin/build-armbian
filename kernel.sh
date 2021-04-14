@@ -10,7 +10,7 @@ armbian_tmp=${tmp_path}/armbian_tmp
 kernel_tmp=${tmp_path}/kernel_tmp
 dtb_tmp=${tmp_path}/dtb_tmp
 modules_tmp=${tmp_path}/modules_tmp
-armbian_oldpath=${make_path}/build/output/images
+armbian_outputpath=${make_path}/build/output/images
 armbian_dtbpath=https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-dtb
 
 die() {
@@ -25,7 +25,7 @@ build_kernel() {
 
     cd  ${tmp_path}
         echo "copy armbian to tmp folder ..."
-        cp ${armbian_oldpath}/*.img . && sync
+        cp ${armbian_outputpath}/*.img . && sync
         armbian_old=$( ls *.img 2>/dev/null | head -n 1 )
         echo "armbian: ${armbian_old}"
 
@@ -82,11 +82,11 @@ build_kernel() {
         echo "umount old armbian ..."
         umount -f ${armbian_tmp} 2>/dev/null
         losetup -d ${loop_old} 2>/dev/null
-        echo "mv ${kernel_version} folder to ${armbian_oldpath}"
-        mv -f ${kernel_version} ${armbian_oldpath}/ && sync
+        echo "mv ${kernel_version} folder to ${armbian_outputpath}"
+        mv -f ${kernel_version} ${armbian_outputpath}/ && sync
 
-    cd ${armbian_oldpath}
-        echo "kernel save path: ${armbian_oldpath}/${kernel_version}.tar.gz"
+    cd ${armbian_outputpath}
+        echo "kernel save path: ${armbian_outputpath}/${kernel_version}.tar.gz"
         tar -czf amlogic-s9xxx-openwrt-kernel-${kernel_version}.tar.gz ${kernel_version} && sync
         rm -rf ${kernel_version} && sync
 
