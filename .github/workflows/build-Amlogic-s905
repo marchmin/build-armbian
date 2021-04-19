@@ -14,9 +14,9 @@ on:
         required: false
         default: 'false'
       armbianboard:
-        description: 'Set Board E.g [ odroidc4 / lepotato ]'
+        description: 'Set Board E.g [ aml-s905 ]'
         required: false
-        default: 'lepotato'
+        default: 'aml-s905'
 #  schedule:
  #   - cron: '0 17 * * 0'
  
@@ -76,7 +76,7 @@ jobs:
       run: |
         cd build/
         sudo chmod +x compile.sh
-        sudo ./compile.sh  BOARD=${{ env.ARMBIAN_BOARD }} BRANCH=current RELEASE=buster BUILD_MINIMAL=no BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,img
+        sudo ./compile.sh  BOARD=${{ env.ARMBIAN_BOARD }} BRANCH=default RELEASE=disco BUILD_MINIMAL=no BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,img
         [ -e ./.config ] && cp -f ./.config ./output/images/.config
         echo "::set-output name=status::success"
 
