@@ -17,8 +17,11 @@ on:
         description: 'Set Board E.g [ odroidc4 / lepotato ]'
         required: false
         default: 'lepotato'
-  schedule:
-    - cron: '0 17 * * 0'
+#  schedule:
+ #   - cron: '0 17 * * 0'
+ 
+  watch:
+    types: [started]
 
 env:
   DELETE_RELEASE: true
