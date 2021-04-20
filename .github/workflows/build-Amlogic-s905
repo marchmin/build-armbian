@@ -7,8 +7,8 @@ name: Build Armbian For Amlogic
 
 on:
   push:
-    branches:
-      - master
+    #branches:
+     # - master
   watch:
     types: [started]
     
