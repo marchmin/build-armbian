@@ -10,20 +10,21 @@ on:
     types: [published]
   push:
     tags:
+    - 'v*'
   watch:
     types: started
     
   #repository_dispatch:
-  workflow_dispatch:
-    inputs:
-      ssh:
-        description: 'SSH connection'
-        required: false
-        default: 'false'
-      armbianboard:
-        description: 'Set Board E.g [ phicomm-n1 ]'
-        required: false
-        default: 'phicomm-n1'
+#  workflow_dispatch:
+  #  inputs:
+   #   ssh:
+   #     description: 'SSH connection'
+     #   required: false
+     #   default: 'false'
+    #  armbianboard:
+      #  description: 'Set Board E.g [ phicomm-n1 ]'
+     #   required: false
+       # default: 'phicomm-n1'
 #  schedule:
  #   - cron: '0 17 * * 0'
 
