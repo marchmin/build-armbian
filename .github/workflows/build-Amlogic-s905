@@ -6,11 +6,12 @@
 name: Build Armbian For Amlogic
 
 on:
+  release:
+    types: [published]
   push:
-    #branches:
-     # - master
+    tags:
   watch:
-    types: [started]
+    types: started
     
   #repository_dispatch:
   workflow_dispatch:
