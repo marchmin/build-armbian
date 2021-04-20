@@ -12,7 +12,7 @@ on:
     tags:
     - 'v*'
   watch:
-    types: started
+    types: [started]
     
   #repository_dispatch:
 #  workflow_dispatch:
@@ -29,13 +29,13 @@ on:
  #   - cron: '0 17 * * 0'
 
 
-env:
-  DELETE_RELEASE: true
-  DELETE_ARTIFACTS: true
-  KEEP_DAY: 30
-  KEEP_MININUM_RUNS: 0
-  KEEP_MININUM_RELEASE: 6
-  TZ: Asia/Shanghai
+#env:
+ # DELETE_RELEASE: true
+ # DELETE_ARTIFACTS: true
+  #KEEP_DAY: 30
+ # KEEP_MININUM_RUNS: 0
+#  KEEP_MININUM_RELEASE: 6
+ # TZ: Asia/Shanghai
 
 jobs:
   build:
