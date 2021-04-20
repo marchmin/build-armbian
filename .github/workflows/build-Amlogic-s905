@@ -14,9 +14,9 @@ on:
         required: false
         default: 'false'
       armbianboard:
-        description: 'Set Board E.g [ aml-s905 ]'
+        description: 'Set Board E.g [ phicomm-n1 ]'
         required: false
-        default: 'aml-s905'
+        default: 'phicomm-n1'
 #  schedule:
  #   - cron: '0 17 * * 0'
  
@@ -47,7 +47,7 @@ jobs:
         if [ -n "${{ github.event.inputs.armbianboard }}" ]; then
            ARMBIAN_BOARD=${{ github.event.inputs.armbianboard }}
         else
-           ARMBIAN_BOARD=lepotato
+           ARMBIAN_BOARD=phicomm-n1
         fi
         echo "ARMBIAN_BOARD=${ARMBIAN_BOARD}" >> $GITHUB_ENV
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
@@ -62,7 +62,7 @@ jobs:
     - name: Download source code
       id: down
       run: |
-        git clone --depth 1 https://github.com/armbian/build.git
+        git clone --depth 1 https://github.com/yunsur/phicomm-n1.git
         
     - name: SSH connection to Actions @ Ctrl+C to enter, Ctrl+D to exit
       uses: P3TERX/ssh2actions@main
