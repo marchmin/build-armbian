@@ -6,10 +6,9 @@
 name: Build Armbian For Amlogic
 
 on:
-  release:
-    types: [published]
- push:
-    tags:
+  push:
+    branches:
+      - master
   watch:
     types: [started]
     
