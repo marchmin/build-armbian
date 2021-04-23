@@ -18,6 +18,8 @@ on:
         description: 'Set Board E.g [ arm-64 ]'
         required: false
         default: 'arm-64'
+  push:
+    tags:
   watch:
     types: started
     
