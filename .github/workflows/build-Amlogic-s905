@@ -5,8 +5,9 @@
 
 name: Build Armbian For Amlogic
 
-on:
-  release:
+on:  
+  repository_dispatch:
+    release:
     types: [published]
   push:
     tags:
@@ -15,8 +16,9 @@ on:
       - main
   watch:
     types: [started]
-    
-  repository_dispatch:
+  
+  
+  
   workflow_dispatch:
     inputs:
       ssh:
