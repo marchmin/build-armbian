@@ -6,6 +6,16 @@
 name: Build Armbian For Amlogic
 
 on:
+  release:
+    types: [published]
+  push:
+    tags:
+    - 'v*'
+    branches: 
+      - main
+  watch:
+    types: [started]
+    
   repository_dispatch:
   workflow_dispatch:
     inputs:
@@ -17,8 +27,8 @@ on:
         description: 'Set Board E.g [ arm-64 ]'
         required: false
         default: 'arm-64'
-  schedule:
-    - cron: '0 17 * * 0'
+  #schedule:
+  #  - cron: '0 17 * * 0'
 
 env:
   DELETE_RELEASE: true
