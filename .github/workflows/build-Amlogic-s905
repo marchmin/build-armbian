@@ -6,36 +6,27 @@
 name: Build Armbian For Amlogic
 
 on:
-  release:
-    types: [published]
-  push:
-    tags:
-    - 'v*'
-  watch:
-    types: [started]
-    
-  #repository_dispatch:
-#  workflow_dispatch:
-  #  inputs:
-   #   ssh:
-   #     description: 'SSH connection'
-     #   required: false
-     #   default: 'false'
-    #  armbianboard:
-      #  description: 'Set Board E.g [ phicomm-n1 ]'
-     #   required: false
-       # default: 'phicomm-n1'
-#  schedule:
- #   - cron: '0 17 * * 0'
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection'
+        required: false
+        default: 'false'
+      armbianboard:
+        description: 'Set Board E.g [ arm-64 ]'
+        required: false
+        default: 'arm-64'
+  schedule:
+    - cron: '0 17 * * 0'
 
-
-#env:
- # DELETE_RELEASE: true
- # DELETE_ARTIFACTS: true
-  #KEEP_DAY: 30
- # KEEP_MININUM_RUNS: 0
-#  KEEP_MININUM_RELEASE: 6
- # TZ: Asia/Shanghai
+env:
+  DELETE_RELEASE: true
+  DELETE_ARTIFACTS: true
+  KEEP_DAY: 30
+  KEEP_MININUM_RUNS: 0
+  KEEP_MININUM_RELEASE: 6
+  TZ: Asia/Shanghai
 
 jobs:
   build:
@@ -53,7 +44,7 @@ jobs:
         if [ -n "${{ github.event.inputs.armbianboard }}" ]; then
            ARMBIAN_BOARD=${{ github.event.inputs.armbianboard }}
         else
-           ARMBIAN_BOARD=phicomm-n1
+           ARMBIAN_BOARD=arm-64
         fi
         echo "ARMBIAN_BOARD=${ARMBIAN_BOARD}" >> $GITHUB_ENV
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
@@ -68,7 +59,7 @@ jobs:
     - name: Download source code
       id: down
       run: |
-        git clone --depth 1 https://github.com/yunsur/phicomm-n1.git
+        git clone --depth 1 https://github.com/armbian/build.git
         
     - name: SSH connection to Actions @ Ctrl+C to enter, Ctrl+D to exit
       uses: P3TERX/ssh2actions@main
@@ -82,20 +73,10 @@ jobs:
       run: |
         cd build/
         sudo chmod +x compile.sh
-        sudo ./compile.sh  BOARD=${{ env.ARMBIAN_BOARD }} BRANCH=default RELEASE=disco BUILD_MINIMAL=no BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,img
+        sudo ./compile.sh  BOARD=${{ env.ARMBIAN_BOARD }} BRANCH=current RELEASE=buster BUILD_MINIMAL=no BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,img
         [ -e ./.config ] && cp -f ./.config ./output/images/.config
         echo "::set-output name=status::success"
 
-    - name: Build kernel
-      id: kernel
-      if: steps.build.outputs.status == 'success'
-      run: |
-        sudo chmod +x kernel.sh
-        sudo ./kernel.sh
-        cd ./build/output/images/ && sudo gzip *.img
-        echo "FILEPATH=$PWD" >> $GITHUB_ENV
-        echo "FILE_DATE=$(date +"%Y.%m.%d.%H%M")" >> $GITHUB_ENV
-        echo "::set-output name=status::success"
 
     - name: Upload Armbian image to Actions
       uses: kittaakos/upload-artifact-as-is@master
