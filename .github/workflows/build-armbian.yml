@@ -14,9 +14,9 @@ on:
         required: false
         default: 'false'
       armbianboard:
-        description: 'Set Board E.g [ arm-64 ]'
+        description: 'Set Board E.g [ kvim1 ]'
         required: false
-        default: 'arm-64'
+        default: 'kvim1'
   schedule:
     - cron: '12 1 * * 0'
 
@@ -44,7 +44,7 @@ jobs:
         if [ -n "${{ github.event.inputs.armbianboard }}" ]; then
            ARMBIAN_BOARD=${{ github.event.inputs.armbianboard }}
         else
-           ARMBIAN_BOARD=arm-64
+           ARMBIAN_BOARD=kvim1
         fi
         echo "ARMBIAN_BOARD=${ARMBIAN_BOARD}" >> $GITHUB_ENV
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
