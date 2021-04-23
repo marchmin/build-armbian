@@ -7,10 +7,6 @@ name: Build Armbian For Amlogic
 
 on:  
   repository_dispatch:
-  push:
-    tags:
-    - 'v*'
-
   
   workflow_dispatch:
     inputs:
@@ -22,8 +18,8 @@ on:
         description: 'Set Board E.g [ arm-64 ]'
         required: false
         default: 'arm-64'
-       watch:
-    types: [started]
+  watch:
+    types: started
     
   #schedule:
   #  - cron: '0 17 * * 0'
