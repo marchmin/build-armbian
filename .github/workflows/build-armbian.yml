@@ -14,9 +14,9 @@ on:
         required: false
         default: 'false'
       armbianboard:
-        description: 'Set Board E.g [ kvim1 ]'
+        description: 'Set Board E.g [ arm-64 ]'
         required: false
-        default: 'kvim1'
+        default: 'arm-64'
   schedule:
     - cron: '12 1 * * 0'
 
@@ -59,7 +59,7 @@ jobs:
     - name: Download source code
       id: down
       run: |
-        git clone --depth 1 https://github.com/armbian/build.git
+        git clone --depth 1 https://github.com/yunsur/phicomm-n1.git
         
     - name: SSH connection to Actions @ Ctrl+C to enter, Ctrl+D to exit
       uses: P3TERX/ssh2actions@main
