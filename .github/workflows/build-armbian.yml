@@ -71,7 +71,7 @@ jobs:
     - name: Build Armbian for ${{ env.ARMBIAN_BOARD }}
       id: build
       run: |
-        cd build/
+        cd phicomm-n1/
         sudo chmod +x compile.sh
         sudo ./compile.sh  BOARD=${{ env.ARMBIAN_BOARD }} BRANCH=current RELEASE=buster BUILD_MINIMAL=no BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,img
         [ -e ./.config ] && cp -f ./.config ./output/images/.config
